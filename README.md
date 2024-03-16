@@ -22,7 +22,7 @@ This project is part of a personal data engineering side project focusing on spo
 
 - Python 3.x
 - `requests` library for API calls
--  An API key from [football-data.org](https://www.football-data.org/)data
+-  An API key from [football-data.org](https://www.football-data.org/)
 
 ### Installation
 
