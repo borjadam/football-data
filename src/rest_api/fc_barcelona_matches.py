@@ -1,23 +1,24 @@
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import requests 
-import os
+# import os
+from settings import BASE_URL, API_KEY
 
 # Load environment variables
-load_dotenv()
+#load_dotenv()
 
 # Check if the API key is loaded
-api_key = os.getenv('API_KEY')
-if api_key:
-    print("API key is correctly set.")
-else:
-    print("API key is not set.")
+# api_key = os.getenv('API_KEY')
+# if api_key:
+#     print("API key is correctly set.")
+# else:
+#     print("API key is not set.")
 
 competition_id = '2014'
 fc_barcelona_id = '81'
 
-def list_teams_in_competition(api_key, competition_id):
+def list_teams_in_competition(API_KEY, competition_id):
     url = f"https://api.football-data.org/v4/competitions/{competition_id}/teams"
-    headers = {"X-Auth-Token": api_key}
+    headers = {"X-Auth-Token": API_KEY}
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         for team in response.json().get('teams', []):
@@ -28,13 +29,13 @@ def list_teams_in_competition(api_key, competition_id):
 #list_teams_in_competition(api_key, competition_id)
 
 
-def upcoming_matches_fc_barcelona(api_key):
-    base_url = 'https://api.football-data.org/v4/'
+def upcoming_matches_fc_barcelona(API_KEY):
+    #base_url = 'https://api.football-data.org/v4/' # no longer needed (api is already imported from settings)
     team_id = '81'
-    headers = {'X-Auth-Token': api_key}
+    headers = {'X-Auth-Token': API_KEY}
 
     # construct the URL to fetch matches
-    matches_url = f"{base_url}/teams/{team_id}/matches?status=SCHEDULED"
+    matches_url = f"{BASE_URL}/teams/{team_id}/matches?status=SCHEDULED"
     response = requests.get(matches_url, headers=headers)
     if response.status_code == 200:
         matches_data = response.json()
@@ -49,4 +50,4 @@ def upcoming_matches_fc_barcelona(api_key):
             print(f"failed to fecth matches. Status Code: {response.status_code}")
 
 if __name__ == "__main__":
-    upcoming_matches_fc_barcelona(api_key)
+    upcoming_matches_fc_barcelona(API_KEY)
